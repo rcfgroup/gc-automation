@@ -198,7 +198,7 @@ def template_match(source, template, dest):
         )
 
 
-@cli.command()
+@cli.command(name="batchmatch")
 @click.option(
     "--images",
     "-i",
@@ -241,10 +241,10 @@ def template_match(source, template, dest):
     type=click.Path(exists=False, file_okay=True),
     help="log if not match file exists",
 )
-def cli(image, match, report, export, output, nomatch):
+def batchmatch(images, match, report, export, output, nomatch):
     no_match_list = list()
     matches = [x for x in list(Path(match).glob("*.csv"))]
-    images = [x for x in list(Path(image).glob("*.gci"))]
+    images = [x for x in list(Path(images).glob("*.gci"))]
     report = Path(report).absolute()
     export = Path(export).absolute()
     output = Path(output).absolute()
