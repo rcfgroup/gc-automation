@@ -1,8 +1,16 @@
 import glob
 import os
 from xml.dom import minidom
-
+"""
+Please run `pip install click pandas` before using this script
+"""
+import click
 import pandas
+
+"""
+Run the command below to see help information, or see cli function
+python python_code.py --help
+"""
 
 
 def get_reports(input_path: str):
@@ -22,6 +30,7 @@ def parse_template(template_path: str):
             'first': float(peak.getElementsByTagName('peakfirstcol')[0].firstChild.data),
             'second': float(peak.getElementsByTagName('peaksecondcol')[0].firstChild.data)
         })
+    print(results)
     return results
 
 
@@ -32,6 +41,7 @@ def parse_report(csv_path: str):
     # if the report csv file structure has changed, edit skiprows
     df = pandas.read_csv(csv_path, skiprows=33)
     df_not_matched = None
+    print(df)
     blobs = list()
     for index, row in df.iterrows():
         print(row)
@@ -44,6 +54,7 @@ def parse_report(csv_path: str):
                 'first': row['Blob.1'],
                 'second': row['Blob.2']
             })
+    print(blobs)
     not_match = list()
     if df_not_matched is not None:
         print(df_not_matched)
@@ -71,6 +82,7 @@ def match_template(blobs, templates):
             'b1': blob['first'],
             'b2': blob['second']
         })
+    print(results)
     return results
 
 
@@ -80,6 +92,34 @@ def write_csv(csv_data, csv_path, header=False):
     df.to_csv(csv_path, header=header, index=False)
 
 
-def compare_match(date, tray, filepath):
-    f_date, f_tray, *_ = filepath.split(" ")
-    return f_date == date and f_tray == tray
+@click.command()
+@click.option('--template', type=click.Path(exists=True, file_okay=True, dir_okay=False), help='template file')
+@click.option('--source', type=click.Path(exists=True, file_okay=True, dir_okay=True), help='single csv file or directory that contains multiple csv file')
+@click.option('--destination', type=click.Path(exists=True, file_okay=False, dir_okay=True), help='destination directory to save template match csv file')
+def cli(source, template, destination):
+    templates = parse_template(template)
+    csv_files = list()
+    if os.path.isdir(source):
+        csv_files = get_reports(source)
+    elif os.path.isfile(source):
+        csv_files.append(source)
+    not_match_report = list()
+    for csv_report in csv_files:
+        blobs, csv_basename, not_match = parse_report(csv_report)
+        not_match_report.extend(not_match)
+        """edit _Combined_Tables.csv to make it match your csv filename pattern """
+        if '_Combined_Tables.csv' in csv_basename:
+            """edit _Template_Match.csv to make your csv filename pattern """
+            new_csv_basename = csv_basename.replace('_Combined_Tables.csv', '_Template_Match.csv')
+        else:
+            """edit _Template_Match.csv to make your csv filename pattern """
+            new_csv_basename = csv_basename.replace('.csv', '_Template_Match.csv')
+        csv_data = match_template(blobs, templates)
+        csv_path = os.path.join(destination, new_csv_basename)
+        write_csv(csv_data, csv_path)
+    if len(not_match_report):
+        write_csv(not_match_report, os.path.join(destination, 'Template Not Matched.csv'), header=True)
+
+
+if __name__ == '__main__':
+    cli()
