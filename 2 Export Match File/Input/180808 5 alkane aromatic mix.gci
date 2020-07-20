@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <gcxgc:header xmlns:gcxgc="http://cse.unl.edu/~reich/gcxgc" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation = "http://cse.unl.edu/~reich/gcxgc.xsd">
-<image version="2.8.2">
+<image version="2.8.1">
 <filename>180808 5 alkane aromatic mix.bin</filename>
 <roundingParameter>0.5</roundingParameter>
 <msDataBin>
@@ -18220,8 +18220,12 @@
 <numPeakMatchedNorm>100.0</numPeakMatchedNorm>
 </matchSummary>
 <matchTranformParam>
+<configColIScaleCenter>0.0</configColIScaleCenter>
+<configColIIScaleCenter>0.0</configColIIScaleCenter>
 <colIDist>5.0</colIDist>
 <colIIDist>10.0</colIIDist>
+<configColITransWidth>0.0</configColITransWidth>
+<configColIITransWidth>0.0</configColIITransWidth>
 <colITrans>-0.10344683908047515</colITrans>
 <colIITrans>0.034482758620689655</colIITrans>
 <colIScale>1.0</colIScale>

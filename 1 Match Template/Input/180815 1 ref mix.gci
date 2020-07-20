@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <gcxgc:header xmlns:gcxgc="http://cse.unl.edu/~reich/gcxgc" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation = "http://cse.unl.edu/~reich/gcxgc.xsd">
-<image version="2.8.2">
+<image version="2.8.1">
 <filename>180815 1 ref mix.bin</filename>
 <roundingParameter>0.5</roundingParameter>
 <msDataBin>
@@ -8688,8 +8688,12 @@
 <numPeakMatchedNorm>100.0</numPeakMatchedNorm>
 </matchSummary>
 <matchTranformParam>
+<configColIScaleCenter>0.0</configColIScaleCenter>
+<configColIIScaleCenter>0.0</configColIIScaleCenter>
 <colIDist>5.0</colIDist>
 <colIIDist>10.0</colIIDist>
+<configColITransWidth>0.0</configColITransWidth>
+<configColIITransWidth>0.0</configColIITransWidth>
 <colITrans>0.7900127428667376</colITrans>
 <colIITrans>-2.203736894303175</colIITrans>
 <colIScale>1.0</colIScale>
