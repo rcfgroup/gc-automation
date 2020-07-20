@@ -42,6 +42,8 @@ Please note, if using a different version of the commercial software (not v2.8r2
 
 Edit the .bat file in the first or second example folder, or the .py file for the third example folder. In the .bat file, change the value of `GC_IMG`, or in the .py file, change the value of `cmd` to match your GC Image CommandLine.bat path.
 
+[Full instruction](/docs/Instruction.docx)
+
 ## FAQs
 #### An error message says: "Software version is older than image version, open image may cause error!"
 
